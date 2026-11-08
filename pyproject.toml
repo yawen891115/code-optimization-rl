@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codeopt-rl"
+version = "0.1.0"
+description = "Execution-guided code optimization with LoRA and reproducible evaluation"
+requires-python = ">=3.10"
+authors = [{name = "Yawen Zheng"}]
+dependencies = []
+
+[project.optional-dependencies]
+ml = ["torch>=2.6,<3", "transformers>=4.45,<5", "peft>=0.13,<0.19", "accelerate>=1,<2"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[project.scripts]
+codeopt = "codeopt.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_modeling.py" = ["E402"]
